@@ -22,9 +22,14 @@ if (isset($_SESSION['email'])) {
     }
 }
 
-// Fetch posts from the database
-if (isset($_GET['latest'])) {
-    $posts_query = mysqli_query($conn, "SELECT * FROM `posts` ORDER BY id DESC");
+// Fetch posts from the database based on selection
+if (isset($_GET['filter'])) {
+    $filter = $_GET['filter'];
+    if ($filter == 'latest') {
+        $posts_query = mysqli_query($conn, "SELECT * FROM `posts` ORDER BY id DESC");
+    } else {
+        $posts_query = mysqli_query($conn, "SELECT * FROM `posts`");
+    }
 } else {
     $posts_query = mysqli_query($conn, "SELECT * FROM `posts`");
 }
@@ -88,14 +93,12 @@ if (isset($_GET['search'])) {
             padding: 5%;
         }
 
-
         .content a {
             font-size: 20px;
             text-decoration: none;
             color: red;
             display: inline-block;
             margin-top: 1rem;
-
         }
 
         .fixed-buttons {
@@ -142,7 +145,8 @@ if (isset($_GET['search'])) {
         }
 
         .post img {
-            max-width: 100%;
+            width: 100%;
+            height: auto;
             border-radius: 5px;
             margin-top: 20px;
         }
@@ -183,46 +187,82 @@ if (isset($_GET['search'])) {
             background-color: #444;
         }
 
-       @media (max-width : 600px) {
-
-        .searchbox button{
-            padding: 10px 10px;
-            cursor: pointer;
-            font-size: 10px;
+        .filter-dropdown {
+            margin-left: 20px;
         }
 
-        .searchbox input[type="text"] {
-            padding: 10px 2px;
-            border: none;
-            outline: none;
-            width: 200px;
-            float: left;
-            font-size: 10px;
+        .filter-dropdown select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
-        .search-bar {    
-            text-align: center;
+
+        @media (max-width: 600px) {
+            .searchbox button {
+                padding: 10px 10px;
+                cursor: pointer;
+                font-size: 10px;
+            }
+
+            .searchbox input[type="text"] {
+                padding: 10px 2px;
+                border: none;
+                outline: none;
+                width: 200px;
+                float: left;
+                font-size: 10px;
+            }
+
+            .search-bar {
+                text-align: center;
+            }
+
+            .fixed-buttons a {
+                font-size: 10px;
+                padding: 10px 10px;
+            }
+
+            .filter-dropdown select {
+                font-size: 10px;
+            }
         }
-        .fixed-buttons a{
-            font-size: 10px;
-            padding: 10px 10px;
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
         }
-       }
+
+        .logo span {
+            color: aqua;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="navbar">
-        <span>Blog</span>
-        <a href="logout.php">Logout</a>
+        <span class="logo">Byte<span>Beat</span></span>
+        <div>
+            <a href="homepage.php">Home</a>
+            <a href="logout.php">Logout</a>
+        </div>
     </div>
 
     <div class="content">
         <div class="search-bar">
-            <form action="" method="GET" class=" searchbox">
+            <form action="" method="GET" class="searchbox">
                 <input type="text" name="search" placeholder="Search by Label Name">
                 <button type="submit">Search</button>
             </form>
+            <div class="filter-dropdown">
+                <form action="" method="GET">
+                    <select name="filter" onchange="this.form.submit()">
+                        <option value="all">All Posts</option>
+                        <option value="latest">Latest Posts</option>
+                    </select>
+                </form>
+            </div>
         </div>
 
         <div class="posts-container">

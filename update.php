@@ -8,11 +8,14 @@
         body {
             font-family: Arial, sans-serif;
             background: #f4f3d8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             margin: 0;
+        }
+        .parent-box{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .container {
             background: white;
@@ -55,9 +58,43 @@
             color:red;
             margin-bottom: 2.5rem;
         }
+        .navbar {
+            background: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 0 1rem;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .logo{
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .logo span{
+            color:aqua
+        }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <span class="logo">Byte<span>Beat</span></span>
+        <div>
+            <a href="homepage.php">Home</a>
+            <a href="logout.php">Logout</a>
+        </div>
+    </div>
+    <div class="parent-box">
     <div class="container">
         <h1>Update Profile</h1>
         <form action="updatefunction.php" method="POST">
@@ -68,6 +105,7 @@
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Update</button>
         </form>
+    </div>
     </div>
 </body>
 </html>

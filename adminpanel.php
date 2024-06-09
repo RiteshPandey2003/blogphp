@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,34 +11,42 @@
             margin: 0;
             padding: 0;
         }
+
         h1 {
             text-align: left;
             margin-left: 20px;
             color: #333;
         }
+
         h2 {
             text-align: center;
             color: #555;
         }
+
         table {
             border-collapse: collapse;
             width: 100%;
             margin-top: 20px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
             color: #333;
         }
+
         .container {
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
         }
+
         .box {
             background-color: #f2f2f2;
             padding: 20px;
@@ -47,6 +56,7 @@
             margin: 0 10px;
             color: #333;
         }
+
         .delete-btn {
             background-color: #ff3333;
             color: white;
@@ -56,11 +66,13 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .delete-btn:hover {
             background-color: #cc0000;
         }
+
         .toggle-btn {
-            background-color: #007bff;
+            background-color: #333;
             color: white;
             border: none;
             padding: 8px 12px;
@@ -69,15 +81,52 @@
             transition: background-color 0.3s;
             margin-left: 1rem;
         }
+
         .toggle-btn:hover {
-            background-color: #0056b3;
+            background-color: #555;
         }
+
         .hidden {
             display: none;
         }
+
+        .navbar {
+            background: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 0 1rem;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .logo{
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .logo span{
+            color:aqua
+        }
     </style>
 </head>
+
 <body>
+    <div class="navbar">
+        <span class="logo">Byte<span>Beat</span></span>
+        <div>
+            <a href="homepage.php">Home</a>
+            <a href="logout.php">Logout</a>
+        </div>
+    </div>
     <h1>Admin Panel</h1>
 
     <div class="container">
@@ -171,36 +220,37 @@
             postDataTable.classList.toggle('hidden');
         }
 
-        
+        function deleteUser(userId) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "delete_user.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // Reload the page after successful deletion
+                        location.reload();
+                    }
+                };
+                xhr.send("id=" + userId);
+            }
+        }
 
         function deletePost(postId) {
-        if (confirm("Are you sure you want to delete this post?")) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "delete_post.php", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    // Reload the page after successful deletion
-                    location.reload();
-                }
-            };
-            xhr.send("id=" + postId);
+            if (confirm("Are you sure you want to delete this post?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "delete_post.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // Reload the page after successful deletion
+                        location.reload();
+                    }
+                };
+                xhr.send("id=" + postId);
+            }
         }
-        function deleteUser(userId) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "delete_user.php", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    // Reload the page after successful deletion
-                    location.reload();
-                }
-            };
-            xhr.send("id=" + userId);
-        }
-    }
-    }
     </script>
 </body>
+
+
 </html>
