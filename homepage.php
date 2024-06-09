@@ -236,6 +236,13 @@ if (isset($_GET['search'])) {
         .logo span {
             color: aqua;
         }
+        @media (min-width: 768px) {
+            .posts-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -269,7 +276,7 @@ if (isset($_GET['search'])) {
             <?php foreach ($posts as $post) : ?>
                 <div class="post">
                     <h3><?php echo htmlspecialchars($post['label']); ?></h3>
-                    <p class="dis"><?php echo htmlspecialchars($post['discription']); ?></p>
+                    <p class="dis"><?php echo substr(htmlspecialchars($post['discription']), 0, 100); ?>... <a href="singlepost.php?id=<?php echo $post['id']; ?>">Read More</a></p>
                     <img src="<?php echo htmlspecialchars($post['file']); ?>" alt="Post Image">
                 </div>
             <?php endforeach; ?>
